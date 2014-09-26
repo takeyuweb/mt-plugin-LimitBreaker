@@ -1,0 +1,24 @@
+name: Limit Breaker
+id: LimitBreaker
+key: limitbreaker
+version: 1.0
+author_link: http://takeyu-web.com/
+author_name: Yuichi Takeuchi
+l10n_class: LimitBreaker::L10N
+
+config_settings:
+  _CGIMaxUpload:
+    default: 0
+    updatable: 1
+
+callbacks:
+  MT::App::CMS::init_app:
+    - handler: $limitbreaker::LimitBreaker::Plugin::_cb_init_app
+  MT::App::CMS::pre_init_request:
+    - handler: $limitbreaker::LimitBreaker::Plugin::_cb_pre_init_request
+  MT::App::CMS::init_request:
+    - handler: $limitbreaker::LimitBreaker::Plugin::_cb_init_request
+  MT::App::CMS::post_run:
+    - handler: $limitbreaker::LimitBreaker::Plugin::_cb_post_run
+  MT::App::CMS::template_param.asset_upload:
+    - handler: $limitbreaker::LimitBreaker::Plugin::_cb_tp_asset_upload
